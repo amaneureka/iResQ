@@ -41,7 +41,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
 public class heatmap extends BaseDemoActivity {
+    private static final String API_KEY = "AIzaSyCNFpftvqBdnPR6aqKHfCc2CnrvRF1JFNs"; // TODO place your own here!
 
     @Override
     protected int getLayoutId() {
