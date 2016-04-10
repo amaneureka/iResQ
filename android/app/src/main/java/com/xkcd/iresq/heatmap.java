@@ -151,7 +151,18 @@ public class heatmap extends BaseDemoActivity {
         mDefaultOpacity = !mDefaultOpacity;
     }
 
-    // Dealing with spinner choices
+    @Override
+    protected void redraw(DataSet mDataset)
+    {
+        if (mProvider == null) {
+            mProvider = new HeatmapTileProvider.Builder().data(mDataset.getData()).build();
+            mOverlay = getMap().addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+        } else {
+            mProvider.setData(mDataset.getData());
+            mOverlay.clearTileCache();
+        }
+    }
+
     public class SpinnerActivity implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int pos, long id) {
@@ -164,16 +175,10 @@ public class heatmap extends BaseDemoActivity {
                 mProvider = new HeatmapTileProvider.Builder().data(
                         mLists.get(getString(R.string.police_stations)).getData()).build();
                 mOverlay = getMap().addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
-                // Render links
-                attribution.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
                 mProvider.setData(mLists.get(dataset).getData());
                 mOverlay.clearTileCache();
             }
-            // Update attribution
-            attribution.setText(Html.fromHtml(String.format(getString(R.string.attrib_format),
-                    mLists.get(dataset).getUrl())));
-
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
@@ -194,27 +199,6 @@ public class heatmap extends BaseDemoActivity {
             list.add(new LatLng(lat, lng));
         }
         return list;
-    }
-
-    /**
-     * Helper class - stores data sets and sources.
-     */
-    private class DataSet {
-        private ArrayList<LatLng> mDataset;
-        private String mUrl;
-
-        public DataSet(ArrayList<LatLng> dataSet, String url) {
-            this.mDataset = dataSet;
-            this.mUrl = url;
-        }
-
-        public ArrayList<LatLng> getData() {
-            return mDataset;
-        }
-
-        public String getUrl() {
-            return mUrl;
-        }
     }
 }
 

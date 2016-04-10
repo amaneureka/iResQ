@@ -12,7 +12,9 @@ import com.estimote.sdk.Utils;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,9 @@ public abstract class BaseDemoActivity extends FragmentActivity implements OnMap
     protected int getLayoutId() {
         return R.layout.map;
     }
+
+    public static double my_lat = 28.6091309;
+    public static double my_long = 77.0328799;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,17 @@ public abstract class BaseDemoActivity extends FragmentActivity implements OnMap
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Just in case if there are multiple beacons with the same uuid, major, minor.
+                        ArrayList<LatLng> list = new ArrayList<LatLng>();
                         for (Beacon rangedBeacon : rangedBeacons) {
                             Log.d("[beacon]", "Rssi" + rangedBeacon.getRssi());
                             Log.d("[beacon]", "Mac" + rangedBeacon.getMacAddress());
                             Log.d("[beacon]", "Distance" + Math.min(Utils.computeAccuracy(rangedBeacon), 6.0));
+                            double distance = Utils.computeAccuracy(rangedBeacon) / 1000;
+                            double lat = my_lat + distance / 110.574;
+                            double lng = my_long + distance / 111.321;
+                            list.add(new LatLng(lat, lng));
+                            redraw(new DataSet(list));
+                            Log.e("[beacon-e]", lat + "; " + lng);
                         }
                     }
                 });
@@ -96,6 +107,8 @@ public abstract class BaseDemoActivity extends FragmentActivity implements OnMap
      * Run the demo-specific code.
      */
     protected abstract void startDemo();
+
+    protected abstract void redraw(DataSet mDataset);
 
     protected GoogleMap getMap() {
         return mMap;
