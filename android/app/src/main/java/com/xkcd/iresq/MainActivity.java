@@ -12,6 +12,8 @@ import android.util.Log;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.estimote.sdk.SystemRequirementsChecker;
+import com.estimote.sdk.Utils;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,37 +21,57 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     private BeaconManager beaconManager;
+    private Region region;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_temp);
 
-        beaconManager = new BeaconManager(getApplicationContext());
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+        beaconManager = new BeaconManager(this);
+        region = new Region("ranged region",
+                UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"), 36966, 3146);
+        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
-            public void onServiceReady() {
-                beaconManager.startMonitoring(new Region(
-                        "monitored region",
-                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
-                        36966, 3146));
-            }
-        });
-
-        beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
-            //some random crappy shit!
-            @Override
-            public void onEnteredRegion(Region region, List<Beacon> list)
-            {
-                showNotification("You are connected!");
-            }
-            @Override
-            public void onExitedRegion(Region region)
-            {
-                showNotification("You are disconnected!");
+            public void onBeaconsDiscovered(Region region, final List<Beacon> rangedBeacons) {
+                // Note that results are not delivered on UI thread.
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Just in case if there are multiple beacons with the same uuid, major, minor.
+                        Beacon foundBeacon = null;
+                        for (Beacon rangedBeacon : rangedBeacons) {
+                            Log.d("[beacon]", "Rssi" + rangedBeacon.getRssi());
+                            Log.d("[beacon]", "Mac" + rangedBeacon.getMacAddress());
+                            Log.d("[beacon]", "Distance" + Math.min(Utils.computeAccuracy(rangedBeacon), 6.0));
+                        }
+                    }
+                });
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
+
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+            @Override
+            public void onServiceReady() {
+                beaconManager.startRanging(region);
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        beaconManager.stopRanging(region);
+
+        super.onPause();
+    }
+
     public void showNotification(String title) {
         Intent notifyIntent = new Intent(this, MainActivity.class);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

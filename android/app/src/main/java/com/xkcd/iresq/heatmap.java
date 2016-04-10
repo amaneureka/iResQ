@@ -96,7 +96,7 @@ public class heatmap extends BaseDemoActivity {
     @Override
     protected void startDemo() {
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(28.6091309,77.0328799), 15));
-        getMap().addMarker(new MarkerOptions().position(new LatLng(28.6091309,77.0328799)).title("Hello"));
+        getMap().addMarker(new MarkerOptions().position(new LatLng(28.6091309,77.0328799)).title("My Location"));
 
         // Set up the spinner/dropdown list
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
