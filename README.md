@@ -37,10 +37,6 @@ In the back end, we get the temperature and motion data, which is being feeded t
 	As we are using Estimote beacons right now, so it makes it pretty easy to detect any motion activity around the area where the beacons are spread across in the place of disaster.		
 
 ## Intimate rescue teams intelligently to act at the earliest
-	
-
-## 
-
 
 ---
 
@@ -55,9 +51,11 @@ In the back end, we get the temperature and motion data, which is being feeded t
 * Showcase of the app on the landing page
 * Web server
 
-
 ## Machine Learning for predictions
 	We are using Linear Classifier to train the data using a Sigmoid Layer neuron, and training the dataset for some good number of iterations.
+
+Illustration of Neural network made: 
+![alt text](https://raw.githubusercontent.com/amaneureka/iResQ/master/server/data/nn.png "this is NN, bro !")
 
 ---
 
@@ -65,9 +63,6 @@ In the back end, we get the temperature and motion data, which is being feeded t
 * Working with Cloud Estimote SDK
 * Building the DataSet
 * Number of neurons in hidden layers
-
-
-
 
 ---
 
@@ -86,8 +81,6 @@ In the back end, we get the temperature and motion data, which is being feeded t
 ## Other Extensions 
 * Security Sureveillance in banks
 * Monitoring home
-
-
 
 ## Built With
 
