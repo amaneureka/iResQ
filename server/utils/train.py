@@ -27,7 +27,7 @@ def main():
     output_model_file = 'model.xml'
 
     # hidden_size = 4
-    epochs = 500
+    epochs = 10
 
     # load data
     # def loadData():
