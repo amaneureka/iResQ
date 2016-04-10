@@ -7,4 +7,9 @@
 	@handle: manojpandey
 """
 
+import train
+
+def activate_network(NeuralNetwork net, Input):
+	result = net.activate(Input)
+    return answer
 
