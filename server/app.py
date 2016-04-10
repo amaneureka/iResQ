@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import os
+import utils.train, utils.validate, utils.predict
 
 app = Flask(__name__)
 

@@ -1,0 +1,5 @@
+25-30
+
+motion:
+	0.5-1.0 -> human
+	0.0-0.4 -> non-human
