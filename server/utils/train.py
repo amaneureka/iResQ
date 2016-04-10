@@ -11,9 +11,9 @@
 import numpy as np
 import cPickle as pickle
 from math import sqrt
-import pylab
-import random
+import pylab, random
 import os.path
+
 from pybrain.structure import SigmoidLayer
 from pybrain.datasets.supervised import SupervisedDataSet as SDS
 from pybrain.tools.shortcuts import buildNetwork
@@ -24,7 +24,7 @@ from pybrain.tools.customxml.networkreader import NetworkReader
 def main():
     train_file = 'data/train.csv'
     # validation_file = 'data/validation.csv'
-    output_model_file = 'model.pkl'
+    output_model_file = 'model.xml'
 
     # hidden_size = 4
     epochs = 500
@@ -73,8 +73,9 @@ def main():
         mse = trainer.train()
         rmse = sqrt(mse)
         print "training RMSE, epoch {}: {}".format(i + 1, rmse)
-
-    pickle.dump(net, open(output_model_file, 'wb'))
+    
+    NetworkWriter.writeToFile(net, output_model_file)
+    #pickle.dump(net, open(output_model_file, 'wb'))
 
 if __name__ == '__main__':
     main()
