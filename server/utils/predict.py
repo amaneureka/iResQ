@@ -12,6 +12,7 @@ import cPickle as pickle
 from math import sqrt
 import pylab, random
 import os.path
+import sys
 
 from pybrain.structure import SigmoidLayer
 from pybrain.datasets.supervised import SupervisedDataSet as SDS
@@ -22,10 +23,9 @@ from pybrain.tools.customxml.networkreader import NetworkReader
 
 net = NetworkReader.readFrom('model.xml')
 
-def activate_network(NeuralNetwork net, Input):
-
+def activate_network(Input):
 	result = net.activate(Input)
-    return answer
-
-if __name__ == '__main__':
-	main()
+	return result
+ 
+arg = [float(x) for x in raw_input().split()]
+print activate_network(arg)

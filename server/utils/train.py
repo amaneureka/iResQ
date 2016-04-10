@@ -27,7 +27,7 @@ def main():
     output_model_file = 'model.xml'
 
     # hidden_size = 4
-    epochs = 10
+    epochs = 500
 
     # load data
     # def loadData():
@@ -62,8 +62,10 @@ def main():
                                  outclass=SigmoidLayer,
                                  bias=True
                                  )
+    net = NetworkReader.readFrom('model.xml')
     for i,o in zip(Input,Output):
         ds.addSample(i,o)
+        print i, o
 
     trainer = BackpropTrainer(net, ds)
         
@@ -73,6 +75,8 @@ def main():
         mse = trainer.train()
         rmse = sqrt(mse)
         print "training RMSE, epoch {}: {}".format(i + 1, rmse)
+        if os.path.isfile("../stopfile.txt") == True:
+            break
     
     NetworkWriter.writeToFile(net, output_model_file)
     #pickle.dump(net, open(output_model_file, 'wb'))

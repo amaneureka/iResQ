@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <PyBrain>
 	<Network class="pybrain.structure.networks.feedforward.FeedForwardNetwork" name="FeedForwardNetwork-8">
-		<name val="'FeedForwardNetwork-8'"/>
+		<name val="u'FeedForwardNetwork-8'"/>
 		<Modules>
 			<LinearLayer class="pybrain.structure.modules.linearlayer.LinearLayer" inmodule="True" name="in">
 				<dim val="3"/>
@@ -23,22 +23,22 @@
 			<FullConnection class="pybrain.structure.connections.full.FullConnection" name="FullConnection-6">
 				<inmod val="bias"/>
 				<outmod val="out"/>
-				<Parameters>[1.3076015787362278, -0.079195841236308476]</Parameters>
+				<Parameters>[-0.7719593311537799, 0.91150317428088845]</Parameters>
 			</FullConnection>
 			<FullConnection class="pybrain.structure.connections.full.FullConnection" name="FullConnection-7">
 				<inmod val="bias"/>
 				<outmod val="hidden0"/>
-				<Parameters>[0.74126172712108651, -0.74036934937931131, -0.73717582752177901, 0.84954597098177898]</Parameters>
+				<Parameters>[11.775570780838432, 1.7516048445482406, 0.20934333506457528, 0.9761037454355751]</Parameters>
 			</FullConnection>
 			<FullConnection class="pybrain.structure.connections.full.FullConnection" name="FullConnection-5">
 				<inmod val="in"/>
 				<outmod val="hidden0"/>
-				<Parameters>[-0.19474355962171491, 0.85139205277912899, 0.11502923203236962, -2.5498102484248988, 2.4546154586703941, -2.4820627048793606, -0.0005805307819079802, 0.83626760591769123, -0.58843696861046846, 0.25525330786931821, 0.29473423324793457, -1.7644153170578165]</Parameters>
+				<Parameters>[2.8807228901152135, -3.1496876125960704, 31.195066481679195, 1.0386511654700856, 0.19438760393607149, -0.61899237463183787, -1.0013549879921801, 0.1111622837955718, -0.29715328104426503, 1.5805465227010649, 0.28220770970647624, -0.17095477197697778]</Parameters>
 			</FullConnection>
 			<FullConnection class="pybrain.structure.connections.full.FullConnection" name="FullConnection-4">
 				<inmod val="hidden0"/>
 				<outmod val="out"/>
-				<Parameters>[-0.97088236035276532, -2.6239627253822664, -0.90749610780843737, 0.19472337591479369, 0.63692178375340114, 2.5058943577774917, -0.47908264502543751, 0.32871952621941225]</Parameters>
+				<Parameters>[4.080014467140197, 0.72137520197351745, 0.12919718903113761, -2.3495089926716464, -4.0800144672926715, 0.29195984463466129, -1.6029408636030582, 1.19663010306991]</Parameters>
 			</FullConnection>
 		</Connections>
 	</Network>
